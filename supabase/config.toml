@@ -1,1 +1,17 @@
 project_id = "mtgqxqcskbylodxihfkb"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+enabled = true
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[functions.mindmate-backend]
+verify_jwt = false

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, Send, RotateCcw, AlertTriangle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useSentimentAnalysis } from "@/hooks/useSentimentAnalysis";
+import { useInteractionTracking } from "@/hooks/useInteractionTracking";
 
 interface Message {
   id: string;
@@ -31,6 +32,7 @@ export const ChatInterface = ({ onBack }: { onBack: () => void }) => {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const { analyzeSentiment } = useSentimentAnalysis();
+  const { trackInteraction } = useInteractionTracking();
 
   const moodOptions = [
     { emoji: "😊", label: "Great", color: "bg-green-100 text-green-800" },
@@ -57,6 +59,9 @@ export const ChatInterface = ({ onBack }: { onBack: () => void }) => {
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
     setIsTyping(true);
+
+    // Track user message interaction
+    await trackInteraction('message', inputValue, sentiment);
 
     // Generate AI response based on sentiment
     setTimeout(() => {
@@ -100,7 +105,7 @@ export const ChatInterface = ({ onBack }: { onBack: () => void }) => {
     }, 2000);
   };
 
-  const handleMoodSelect = (mood: string) => {
+  const handleMoodSelect = async (mood: string) => {
     const moodMessage: Message = {
       id: Date.now().toString(),
       text: `I'm feeling ${mood.toLowerCase()} today`,
@@ -110,6 +115,9 @@ export const ChatInterface = ({ onBack }: { onBack: () => void }) => {
     };
 
     setMessages(prev => [...prev, moodMessage]);
+    
+    // Track mood selection interaction
+    await trackInteraction('mood_selection', `I'm feeling ${mood.toLowerCase()} today`, undefined, mood.toLowerCase());
     
     setIsTyping(true);
     setTimeout(() => {
