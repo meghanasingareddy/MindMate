@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build && cpx \"../Portfolio/**/*\" dist/portfolio",
-  "dev": "vite",
-  "preview": "vite preview"
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -39,7 +39,6 @@
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@supabase/supabase-js": "^2.57.4",
-    "@tanstack/react-query": "^5.83.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

@@ -1,24 +1,7 @@
 import { useState } from 'react';
-import { pipeline } from '@huggingface/transformers';
 
 export const useSentimentAnalysis = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [classifier, setClassifier] = useState<any>(null);
-
-  const initializeModel = async () => {
-    if (!classifier) {
-      try {
-        const sentimentPipeline = await pipeline('sentiment-analysis', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english');
-        setClassifier(sentimentPipeline);
-        return sentimentPipeline;
-      } catch (error) {
-        console.error('Failed to initialize sentiment model:', error);
-        // Fallback to keyword-based analysis
-        return null;
-      }
-    }
-    return classifier;
-  };
 
   const analyzeSentiment = async (text: string): Promise<{
     label: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' | 'CRISIS';
@@ -41,29 +24,7 @@ export const useSentimentAnalysis = () => {
         return { label: 'CRISIS', score: 0.95 };
       }
 
-      // Try to use Hugging Face model
-      const model = await initializeModel();
-      if (model) {
-        const result = await model(text);
-        const prediction = Array.isArray(result) ? result[0] : result;
-        
-        let label: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' = 'NEUTRAL';
-        let score = prediction.score;
-
-        if (prediction.label === 'POSITIVE' && score > 0.6) {
-          label = 'POSITIVE';
-        } else if (prediction.label === 'NEGATIVE' && score > 0.6) {
-          label = 'NEGATIVE';
-        } else {
-          label = 'NEUTRAL';
-          score = 0.5;
-        }
-        
-        setIsLoading(false);
-        return { label, score };
-      }
-
-      // Fallback to keyword-based analysis
+      // Fallback to keyword-based analysis for now
       const negativeKeywords = [
         'sad', 'depressed', 'anxious', 'worried', 'stressed', 'overwhelmed',
         'lonely', 'tired', 'exhausted', 'frustrated', 'angry', 'upset',

@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 
 export const useInteractionTracking = () => {
   const sessionId = localStorage.getItem('mindmate-session-id') || (() => {
@@ -18,23 +17,29 @@ export const useInteractionTracking = () => {
     mood?: string
   ) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      // For now, just log interactions locally
+      console.log('Tracking interaction:', {
+        type,
+        content,
+        sentiment,
+        mood,
+        sessionId,
+        timestamp: new Date().toISOString()
+      });
       
-      const { error } = await supabase
-        .from('user_interactions')
-        .insert({
-          user_id: user?.id || null,
-          session_id: sessionId,
-          interaction_type: type,
-          content,
-          sentiment_label: sentiment?.label || null,
-          sentiment_score: sentiment?.score || null,
-          mood_selected: mood || null,
-        });
-
-      if (error) {
-        console.error('Error tracking interaction:', error);
-      }
+      // Store in localStorage for demo purposes
+      const interactions = JSON.parse(localStorage.getItem('mindmate-interactions') || '[]');
+      interactions.push({
+        id: Date.now(),
+        session_id: sessionId,
+        interaction_type: type,
+        content,
+        sentiment_label: sentiment?.label || null,
+        sentiment_score: sentiment?.score || null,
+        mood_selected: mood || null,
+        created_at: new Date().toISOString()
+      });
+      localStorage.setItem('mindmate-interactions', JSON.stringify(interactions));
     } catch (error) {
       console.error('Failed to track interaction:', error);
     }
