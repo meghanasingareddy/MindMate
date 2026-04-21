@@ -30,7 +30,7 @@ export const Hero = ({ onStartChat }: { onStartChat: () => void }) => {
                 size="lg"
                 className="bg-gradient-to-r from-primary to-secondary hover:shadow-glow transition-all duration-300 px-8 py-6 text-lg font-semibold rounded-xl"
               >
-                Start Chatting 💬
+                Start Chatting
               </Button>
               <Button 
                 variant="outline" 

@@ -151,17 +151,18 @@ export const ChatInterface = ({ onBack }: { onBack: () => void }) => {
                 <Heart className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <h1 className="font-semibold text-foreground">MindMate</h1>
-                <p className="text-sm text-muted-foreground">Always here to listen</p>
+                <h1 className="font-semibold text-foreground text-lg">MindMate</h1>
+                <p className="text-xs text-muted-foreground font-medium">AI Companion</p>
               </div>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             <Button
-              variant="outline"
-              className="text-destructive border-destructive/30 hover:bg-destructive/10"
+              variant="destructive"
+              className="bg-destructive hover:bg-destructive/90 text-destructive-foreground shadow-glow transition-all"
+              onClick={() => alert("Connecting to emergency services...")}
             >
               <AlertTriangle className="w-4 h-4 mr-2" />
               Emergency Help
