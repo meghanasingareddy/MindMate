@@ -54,8 +54,8 @@ npm run dev
 
 ## Preview
 
-![MindMate Preview](<img width="1898" height="939" alt="2026-04-21T12-40-07 699Z" src="https://github.com/user-attachments/assets/99fa07fd-4350-4a25-b102-942bc515aea3" />
-)
+<img width="1898" height="939" alt="2026-04-21T12-40-07 699Z" src="https://github.com/user-attachments/assets/0676e332-3ccb-4f34-a6ed-c0b6ab381e90" />
+
 
 ---
 
