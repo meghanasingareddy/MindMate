@@ -54,7 +54,7 @@ npm run dev
 
 ## Preview
 
-(Add screenshots or GIF here — this is VERY important for portfolio impact)
+![MindMate Preview](./public/preview.png)
 
 ---
 
